@@ -1,0 +1,1 @@
+NODE_ENV=development SERVER_MODE_ENV=package nodemon server.js

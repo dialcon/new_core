@@ -1,0 +1,39 @@
+{
+  "name": "empty-leaf",
+  "version": "1.0.0",
+  "description": "My app description",
+  "scripts": {
+    "start": "node server.js",
+    "test_package": "mongo test_package --eval 'db.dropDatabase()' && mongo test_modules --eval 'db.dropDatabase()' && mocha --require test/support/env_package --reporter spec --bail --check-leaks -c  --globals db,lr --timeout 60000 test/package/*",
+    "test_gateway": "mocha --require test/support/env_gateway --reporter spec --bail --check-leaks --globals db test/gateway/*"
+  },
+  "dependencies": {
+    "async": "",
+    "aws-sdk": "^2.227.1",
+    "bcrypt-nodejs": "",
+    "bluebird": "",
+    "body-parser": "",
+    "compression": "",
+    "cookie-parser": "",
+    "express": "",
+    "express-validator": "",
+    "i18n": "",
+    "jsonwebtoken": "",
+    "lodash": "",
+    "moment": "",
+    "mongodb": "",
+    "mongoose": "",
+    "morgan": "",
+    "nodemailer": "",
+    "redis": "",
+    "request": "",
+    "validator": ""
+  },
+  "devDependencies": {
+    "mocha": "",
+    "supertest": ""
+  },
+  "engines": {
+    "node": "7.0.0"
+  }
+}

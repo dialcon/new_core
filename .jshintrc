@@ -1,0 +1,29 @@
+{
+    "indent": 2,
+    "browser": true,
+    "esnext": true,
+    "camelcase": false,
+    "curly": true,
+    "eqeqeq": true,
+    "latedef": true,
+    "immed": true,
+    "newcap": true,
+    "noarg": true,
+    "undef": true,
+    "unused": "vars",
+    "esnext": true,
+    "quotmark": "simple",
+    "node": true,
+    "mocha": true,
+    "bitwise": false,
+    "predef": [
+        "process",
+        "define",
+        "angular",
+        "$",
+        "google",
+        "canRecover",
+        "responseOrNewPromise",
+        "enviroment"
+    ]
+}
