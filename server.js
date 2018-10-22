@@ -31,8 +31,9 @@ if (process.env.TEST === 'yes') {
 
 let dbOptionsForReplicaSet = {
   autoReconnect: true,
-  promiseLibrary: global.Promise,
-  replicaSet: 'rs0'
+  promiseLibrary: global.Promise
+  /*,
+    replicaSet: 'rs0'*/
 };
 
 if (process.env.TEST === 'yes') {

@@ -308,11 +308,9 @@ exports.cron = (req, res, next) => {
         }
       });
       module.new = false;
-      if (module.module_type === 'gps') {
-        async.map(indexes, createIndexTracking, cb);
-      } else {
-        async.map(indexes, createIndexModules, cb);
-      }
+
+      async.map(indexes, createIndexModules, cb);
+
       // async.parallel({
       //   modules: (cb) => {
       //     async.map(indexes, createIndexModules, cb);
