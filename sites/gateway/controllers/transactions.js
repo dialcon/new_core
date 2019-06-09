@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
 'use strict';
 var request = require('request');
 var base = require(`${global.path}/models`);
@@ -15,13 +17,30 @@ var config = require(`${global.path}/config`);
 var _ = require('lodash');
 var async = require('async');
 
-//calibrar datos
+//calibrar tipos de datos
 function calibrate(obj, types) {
   _.forEach(types, (type, key) => {
     let names = key.replace(/[-+]/, '.');
     let val = _.get(obj, names);
     if (!_.isUndefined(val)) {
-      _.set(obj, names, util.parseTypes(type, val));
+      if (type === 'A' && _.isArray(val)) {
+        let keys = Object.keys(types).map(key => key.replace(/[-+]/, '.'));
+        let keys2 = Object.keys(types);
+        let tmp = [];
+        _.forEach(val, v => {
+          let tmp2 = {};
+          _.forEach(v, (v2, k2) => {
+            let i = keys.indexOf(`${names}.${k2}`);
+            if (i !== -1) {
+              _.set(tmp2, k2, util.parseTypes(types[keys2[i]], v2));
+            }
+          });
+          tmp.push(tmp2);
+        });
+        _.set(obj, names, tmp);
+      } else {
+        _.set(obj, names, util.parseTypes(type, val));
+      }
     }
   });
   return obj;

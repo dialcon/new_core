@@ -18,8 +18,7 @@ global.path = __dirname;
 let dbOptionsForSharedCluster = {
   autoReconnect: true,
   promiseLibrary: global.Promise,
-  ssl: true,
-  authSource: 'tracking'
+  poolSize: 30
 };
 
 if (process.env.TEST === 'yes') {
@@ -29,15 +28,8 @@ if (process.env.TEST === 'yes') {
   };
 }
 
-let dbOptionsForReplicaSet = {
-  autoReconnect: true,
-  promiseLibrary: global.Promise
-  /*,
-    replicaSet: 'rs0'*/
-};
-
 if (process.env.TEST === 'yes') {
-  dbOptionsForReplicaSet = {
+  dbOptionsForSharedCluster = {
     autoReconnect: true,
     promiseLibrary: global.Promise
   };
@@ -45,7 +37,7 @@ if (process.env.TEST === 'yes') {
 
 //databases
 mongoose.Promise = require('bluebird');
-global.mongodb_package = mongoose.createConnection(config.db.mongodb_package.url, Object.assign({}, dbOptionsForReplicaSet));
+global.mongodb_package = mongoose.createConnection(config.db.mongodb_package.url, Object.assign({}, dbOptionsForSharedCluster));
 global.mongodb_package.on('connected', function () {
   console.log('MongoDB connection open to ' + config.db.mongodb_package.url);
 });
@@ -55,7 +47,7 @@ global.mongodb_package.on('error', function (err) {
 });
 
 //
-global.mongodb_modules = mongoose.createConnection(config.db.mongodb_modules.url, Object.assign({}, dbOptionsForReplicaSet));
+global.mongodb_modules = mongoose.createConnection(config.db.mongodb_modules.url, Object.assign({}, dbOptionsForSharedCluster));
 global.mongodb_modules.on('connected', function () {
   console.log('MongoDB connection open to ' + config.db.mongodb_modules.url);
 });
@@ -69,7 +61,7 @@ global.mongodb_modules.on('error', function (err) {
 // if you'd like to select database 3, instead of 0 (default), call
 // client.select(3, function() { /* ... */ });
 global.clientRedis = redis.createClient(config.db.redis.url);
-global.clientRedis.select(2, () => {});
+global.clientRedis.select(2, () => { });
 global.clientRedis.on("connect", function () {
   console.log('Redis connection open to ' + config.db.redis.url);
   global.clientRedis.flushdb(function (err, succeeded) {
