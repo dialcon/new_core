@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "async": "",
-    "aws-sdk": "^2.227.1",
+    "aws-sdk": "^2.814.0",
     "bcrypt-nodejs": "",
     "bluebird": "",
     "body-parser": "",
